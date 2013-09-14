@@ -16,15 +16,15 @@
       step: 1,
       start: function(event, ui) {
         startPosition = ui.value;
-        return $("#slider").slider("option", "step", 1);
+        return setStep(1);
       },
       slide: function(event, ui) {
         $("#amount").val("$" + ui.value);
-        if (scrollAmount(ui.value) < 10) {
+        if (scrollAmount(ui.value) <= 10) {
           return setStep(1);
-        } else if (scrollAmount(ui.value) < 50) {
+        } else if (scrollAmount(ui.value) <= 50) {
           return setStep(10);
-        } else if (scrollAmount(ui.value) >= 50) {
+        } else {
           return setStep(50);
         }
       }

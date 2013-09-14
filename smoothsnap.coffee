@@ -14,14 +14,14 @@ $ ->
     step: 1
     start: (event, ui) ->
       startPosition = ui.value
-      $("#slider").slider( "option", "step", 1)
+      setStep(1)      
     slide: (event, ui) ->
       $("#amount" ).val( "$" + ui.value )
-      if (scrollAmount(ui.value) < 10)
+      if (scrollAmount(ui.value) <= 10)
         setStep(1)
-      else if (scrollAmount(ui.value) < 50)
+      else if (scrollAmount(ui.value) <= 50)
         setStep(10)
-      else if (scrollAmount(ui.value) >= 50)
+      else
         setStep(50)
   )
 
