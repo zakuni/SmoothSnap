@@ -1,3 +1,3 @@
 $(function(){
-  $("h2").smoothsnap();
+  $("#slider").smoothsnap();
 });
