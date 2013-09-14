@@ -1,5 +1,12 @@
 $ ->
   startPosition = 0
+
+  scrollAmount = (current) ->
+    Math.abs(current - startPosition)
+
+  setStep = (val) ->
+    $("#slider").slider("option", "step", val)
+
   $("#slider" ).slider(
     value:100
     min: 0
@@ -7,14 +14,15 @@ $ ->
     step: 1
     start: (event, ui) ->
       startPosition = ui.value
-      $("#slider").slider( "option", "step", 1)
+      setStep(1)      
     slide: (event, ui) ->
-      $( "#amount" ).val( "$" + ui.value )
-      if (Math.abs(ui.value - startPosition) < 10)
-        $("#slider").slider("option", "step", 1)
-      else if (Math.abs(ui.value - startPosition) < 50)
-        $("#slider").slider("option", "step", 10)
-      else if (Math.abs(ui.value - startPosition) >= 50)
-        $( "#slider").slider("option", "step", 50)
+      $("#amount" ).val( "$" + ui.value )
+      if (scrollAmount(ui.value) <= 10)
+        setStep(1)
+      else if (scrollAmount(ui.value) <= 50)
+        setStep(10)
+      else
+        setStep(50)
   )
+
   $("#amount").val("$" + $( "#slider" ).slider( "value" ))
