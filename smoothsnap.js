@@ -1,12 +1,23 @@
 $(function() {
+  var startPosition = 0;
   $( "#slider" ).slider({
-    orientation: "vertical",
     value:100,
     min: 0,
     max: 500,
-    step: 50,
+    step: 1,
+    start: function( event, ui ) {
+      startPosition = ui.value;
+      $("#slider").slider( "option", "step", 1);
+    },
     slide: function( event, ui ) {
       $( "#amount" ).val( "$" + ui.value );
+      if (Math.abs(ui.value - startPosition) < 10 ) {
+        $("#slider").slider( "option", "step", 1 );
+      } else if (Math.abs(ui.value - startPosition) < 50 ) {
+        $("#slider").slider( "option", "step", 10 );
+      } else if (Math.abs(ui.value - startPosition) >= 50 ){
+        $( "#slider").slider( "option", "step", 50 );
+      }
     }
   });
   $( "#amount" ).val( "$" + $( "#slider" ).slider( "value" ) );
