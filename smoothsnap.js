@@ -10,7 +10,7 @@
       return $("#slider").slider("option", "step", val);
     };
     $("#slider").slider({
-      value: 100,
+      value: 200,
       min: 0,
       max: 500,
       step: 1,
@@ -19,7 +19,7 @@
         return setStep(1);
       },
       slide: function(event, ui) {
-        $("#amount").val("$" + ui.value);
+        $("#amount").val(ui.value);
         if (scrollAmount(ui.value) <= 10) {
           return setStep(1);
         } else if (scrollAmount(ui.value) <= 50) {
@@ -29,7 +29,7 @@
         }
       }
     });
-    return $("#amount").val("$" + $("#slider").slider("value"));
+    return $("#amount").val($("#slider").slider("value"));
   });
 
 }).call(this);
