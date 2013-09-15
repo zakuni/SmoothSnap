@@ -2,20 +2,20 @@
 (function() {
   $.widget('ui.smoothsnap', {
     _create: function() {
-      var element, scrollAmount, setStep, startPosition;
-      element = this.element;
+      var scrollAmount, setStep, startPosition,
+        _this = this;
       startPosition = 0;
-      element.on("slidestart", function(event, ui) {
+      this.element.on("slidestart", function(event, ui) {
         startPosition = ui.value;
-        return setStep(element, 1);
+        return setStep(_this.element, 1);
       });
-      element.on("slide", function(event, ui) {
+      this.element.on("slide", function(event, ui) {
         if (scrollAmount(ui.value) <= 10) {
-          return setStep(element, 1);
+          return setStep(_this.element, 1);
         } else if (scrollAmount(ui.value) <= 50) {
-          return setStep(element, 10);
+          return setStep(_this.element, 10);
         } else {
-          return setStep(element, 50);
+          return setStep(_this.element, 50);
         }
       });
       scrollAmount = function(current) {
