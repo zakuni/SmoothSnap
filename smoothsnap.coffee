@@ -3,25 +3,18 @@ $.widget('ui.smoothsnap',
     element = @element
     startPosition = 0
 
-    element.slider(
-      value:200
-      min: 0
-      max: 500
-      step: 1
-      start: (event, ui) ->
-        startPosition = ui.value
-        setStep(element, 1)      
-      slide: (event, ui) ->
-        $("#amount" ).val(ui.value )
-        if (scrollAmount(ui.value) <= 10)
-          setStep(element, 1)
-        else if (scrollAmount(ui.value) <= 50)
-          setStep(element, 10)
-        else
-          setStep(element, 50)
+    element.on("slidestart", (event, ui) ->
+      startPosition = ui.value
+      setStep(element, 1)
     )
-
-    $("#amount").val(element.slider("value"))
+    element.on("slide", (event, ui) ->
+      if (scrollAmount(ui.value) <= 10)
+        setStep(element, 1)
+      else if (scrollAmount(ui.value) <= 50)
+        setStep(element, 10)
+      else
+        setStep(element, 50)
+    )
 
     scrollAmount = (current) ->
       Math.abs(current - startPosition)

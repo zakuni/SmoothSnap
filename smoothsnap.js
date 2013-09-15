@@ -5,27 +5,19 @@
       var element, scrollAmount, setStep, startPosition;
       element = this.element;
       startPosition = 0;
-      element.slider({
-        value: 200,
-        min: 0,
-        max: 500,
-        step: 1,
-        start: function(event, ui) {
-          startPosition = ui.value;
+      element.on("slidestart", function(event, ui) {
+        startPosition = ui.value;
+        return setStep(element, 1);
+      });
+      element.on("slide", function(event, ui) {
+        if (scrollAmount(ui.value) <= 10) {
           return setStep(element, 1);
-        },
-        slide: function(event, ui) {
-          $("#amount").val(ui.value);
-          if (scrollAmount(ui.value) <= 10) {
-            return setStep(element, 1);
-          } else if (scrollAmount(ui.value) <= 50) {
-            return setStep(element, 10);
-          } else {
-            return setStep(element, 50);
-          }
+        } else if (scrollAmount(ui.value) <= 50) {
+          return setStep(element, 10);
+        } else {
+          return setStep(element, 50);
         }
       });
-      $("#amount").val(element.slider("value"));
       scrollAmount = function(current) {
         return Math.abs(current - startPosition);
       };
