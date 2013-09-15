@@ -10,16 +10,16 @@
         return setStep(_this.element, 1);
       });
       this.element.on("slide", function(event, ui) {
-        if (scrollAmount(ui.value) <= 10) {
+        if (scrollAmount(startPosition, ui.value) <= 10) {
           return setStep(_this.element, 1);
-        } else if (scrollAmount(ui.value) <= 50) {
+        } else if (scrollAmount(startPosition, ui.value) <= 50) {
           return setStep(_this.element, 10);
         } else {
           return setStep(_this.element, 50);
         }
       });
-      scrollAmount = function(current) {
-        return Math.abs(current - startPosition);
+      scrollAmount = function(start, current) {
+        return Math.abs(current - start);
       };
       return setStep = function(element, val) {
         return element.slider("option", "step", val);
