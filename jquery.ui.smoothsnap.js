@@ -8,7 +8,15 @@
       var snapTo, startPosition,
         _this = this;
       startPosition = 0;
-      snapTo = this.options.snapTo;
+      snapTo = this.options.snapTo.sort(function(a, b) {
+        if (a < b) {
+          return -1;
+        }
+        if (a > b) {
+          return 1;
+        }
+        return 0;
+      });
       this.element.on("slidestart", function(event, ui) {
         startPosition = ui.value;
         return _this._setStep(_this.element, snapTo[0]);

@@ -3,8 +3,13 @@ $.widget('ui.smoothsnap',
     snapTo: [1, 10, 50]
   _create: () ->
     startPosition = 0
-    snapTo = @options.snapTo
-
+    snapTo = @options.snapTo.sort(
+      (a, b) -> 
+        return -1 if a < b
+        return 1 if a > b
+        return 0
+    )
+    
     @element.on("slidestart", (event, ui) =>
       startPosition = ui.value
       this._setStep(@element, snapTo[0])
