@@ -2,7 +2,7 @@
 
 ## Dependencies
 * jQuery
-* jQueryUI
+* jQueryUI(Slider Widget)
 
 ## Usage
 
