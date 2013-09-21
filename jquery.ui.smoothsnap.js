@@ -22,16 +22,28 @@
         return _this._setStep(_this.element, snapTo[0]);
       });
       return this.element.on("slide", function(event, ui) {
-        var _ref;
-        if (_this._scrollAmount(startPosition, ui.value) <= snapTo[1]) {
-          _this._setStep(_this.element, snapTo[0]);
+        var i, to, _i, _len, _results;
+        _results = [];
+        for (i = _i = 0, _len = snapTo.length; _i < _len; i = ++_i) {
+          to = snapTo[i];
+          _results.push((function(to, i) {
+            var _ref;
+            if (i === 0) {
+              if (_this._scrollAmount(startPosition, ui.value) <= snapTo[i + 1]) {
+                return _this._setStep(_this.element, snapTo[i]);
+              }
+            } else if (i === snapTo.length - 1) {
+              if (snapTo[i] < _this._scrollAmount(startPosition, ui.value)) {
+                return _this._setStep(_this.element, snapTo[i]);
+              }
+            } else {
+              if ((snapTo[i] < (_ref = _this._scrollAmount(startPosition, ui.value)) && _ref <= snapTo[i + 1])) {
+                return _this._setStep(_this.element, snapTo[i]);
+              }
+            }
+          })(to, i));
         }
-        if ((snapTo[1] < (_ref = _this._scrollAmount(startPosition, ui.value)) && _ref <= snapTo[2])) {
-          _this._setStep(_this.element, snapTo[1]);
-        }
-        if (snapTo[2] < _this._scrollAmount(startPosition, ui.value)) {
-          return _this._setStep(_this.element, snapTo[2]);
-        }
+        return _results;
       });
     },
     _scrollAmount: function(start, current) {
