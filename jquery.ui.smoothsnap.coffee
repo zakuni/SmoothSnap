@@ -15,12 +15,17 @@ $.widget('ui.smoothsnap',
       this._setStep(@element, snapTo[0])
     )
     @element.on("slide", (event, ui) =>
-      if (this._scrollAmount(startPosition, ui.value) <= snapTo[1])
-        this._setStep(@element, snapTo[0])
-      else if (this._scrollAmount(startPosition, ui.value) <= snapTo[2])
-        this._setStep(@element, snapTo[1])
-      else
-        this._setStep(@element, snapTo[2])
+      for to, i in snapTo
+        do (to, i) =>
+          if i == 0
+            if (this._scrollAmount(startPosition, ui.value) <= snapTo[i+1])
+              this._setStep(@element, snapTo[i])
+          else if i == snapTo.length-1
+            if (snapTo[i] < this._scrollAmount(startPosition, ui.value))
+              this._setStep(@element, snapTo[i])
+          else
+            if (snapTo[i] < this._scrollAmount(startPosition, ui.value) <= snapTo[i+1])
+              this._setStep(@element, snapTo[i])
     )
 
   _scrollAmount: (start, current) ->
