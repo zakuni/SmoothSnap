@@ -22,11 +22,14 @@
         return _this._setStep(_this.element, snapTo[0]);
       });
       return this.element.on("slide", function(event, ui) {
+        var _ref;
         if (_this._scrollAmount(startPosition, ui.value) <= snapTo[1]) {
-          return _this._setStep(_this.element, snapTo[0]);
-        } else if (_this._scrollAmount(startPosition, ui.value) <= snapTo[2]) {
-          return _this._setStep(_this.element, snapTo[1]);
-        } else {
+          _this._setStep(_this.element, snapTo[0]);
+        }
+        if ((snapTo[1] < (_ref = _this._scrollAmount(startPosition, ui.value)) && _ref <= snapTo[2])) {
+          _this._setStep(_this.element, snapTo[1]);
+        }
+        if (snapTo[2] < _this._scrollAmount(startPosition, ui.value)) {
           return _this._setStep(_this.element, snapTo[2]);
         }
       });
