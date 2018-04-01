@@ -21,4 +21,4 @@ $("#yourslider").slider().smoothsnap({snapTo: ["h2", "h1"]});
 ```
 
 ## Demo
-http://ozawakun.io/smoothsnap/sample.html
+http://ozawakun.io/static/smoothsnap/sample.html
